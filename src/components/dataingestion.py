@@ -10,6 +10,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 from src.exceptions import CustomException
 from src.logger import logging
 from src.components.datatransform import DataTransformation, DataTransformationConfig
+from src.components.model_trained import ModelTrainer, ModelTrainerConfig
 
 @dataclass
 class DataIngestionConfig:
@@ -43,4 +44,7 @@ if __name__ == '__main__':
     train_data, test_data = obj.start_data_ingestion()
 
     data_transform = DataTransformation()
-    data_transform.start_data_transformation(train_data, test_data)
+    train_arr, test_arr, _ = data_transform.start_data_transformation(train_data, test_data)
+
+    modelTrainer = ModelTrainer()
+    print(modelTrainer.start_model_trainer(train_arr, test_arr))
